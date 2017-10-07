@@ -75,7 +75,7 @@
             this.btn_down_x.Name = "btn_down_x";
             this.btn_down_x.Size = new System.Drawing.Size(103, 23);
             this.btn_down_x.TabIndex = 3;
-            this.btn_down_x.Text = "Download Ep. X";
+            this.btn_down_x.Text = "Download X";
             this.btn_down_x.UseVisualStyleBackColor = true;
             this.btn_down_x.Click += new System.EventHandler(this.btn_down_x_Click);
             // 

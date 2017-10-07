@@ -32,11 +32,12 @@
             this.label1 = new System.Windows.Forms.Label();
             this.btn_download_x = new System.Windows.Forms.Button();
             this.chk_720p = new System.Windows.Forms.CheckBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // txtbox_show_ep
             // 
-            this.txtbox_show_ep.Location = new System.Drawing.Point(16, 44);
+            this.txtbox_show_ep.Location = new System.Drawing.Point(15, 131);
             this.txtbox_show_ep.Name = "txtbox_show_ep";
             this.txtbox_show_ep.Size = new System.Drawing.Size(178, 20);
             this.txtbox_show_ep.TabIndex = 5;
@@ -48,13 +49,13 @@
             this.label1.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(12, 15);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(188, 15);
+            this.label1.Size = new System.Drawing.Size(188, 30);
             this.label1.TabIndex = 4;
-            this.label1.Text = "Show Name, Season and Episode: ";
+            this.label1.Text = "Enter Movie Name or \r\nShow Name, Season and Episode: ";
             // 
             // btn_download_x
             // 
-            this.btn_download_x.Location = new System.Drawing.Point(119, 79);
+            this.btn_download_x.Location = new System.Drawing.Point(118, 166);
             this.btn_download_x.Name = "btn_download_x";
             this.btn_download_x.Size = new System.Drawing.Size(75, 23);
             this.btn_download_x.TabIndex = 3;
@@ -65,19 +66,32 @@
             // chk_720p
             // 
             this.chk_720p.AutoSize = true;
+            this.chk_720p.Checked = true;
+            this.chk_720p.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chk_720p.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chk_720p.Location = new System.Drawing.Point(16, 83);
+            this.chk_720p.Location = new System.Drawing.Point(15, 170);
             this.chk_720p.Name = "chk_720p";
             this.chk_720p.Size = new System.Drawing.Size(51, 18);
             this.chk_720p.TabIndex = 6;
             this.chk_720p.Text = "720P";
             this.chk_720p.UseVisualStyleBackColor = true;
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(12, 54);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(192, 65);
+            this.label2.TabIndex = 7;
+            this.label2.Text = "Note: for movies and TV shows make\r\nsure you enter the exact name.\r\nFor TV shows," +
+    " add the season and \r\nepisode numbers after the show name. \r\nEx. Arrow S01E01.";
+            // 
             // dlgDownloadX
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(208, 114);
+            this.ClientSize = new System.Drawing.Size(208, 194);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.chk_720p);
             this.Controls.Add(this.txtbox_show_ep);
             this.Controls.Add(this.label1);
@@ -95,5 +109,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btn_download_x;
         private System.Windows.Forms.CheckBox chk_720p;
+        private System.Windows.Forms.Label label2;
     }
 }

@@ -20,14 +20,16 @@ namespace TVautoGUI
                 Application.SetCompatibleTextRenderingDefault(false);
                 Application.Run(new Main());
             }
+            else
+            {
+                try
+                {
+                    Util.RunProcessForAllShows();
+                }
+                catch (Exception ex)
+                {
 
-            try
-            {
-                Util.RunProcessForAllShows();
-            }
-            catch (Exception ex)
-            {
-                
+                }
             }
         }
     }

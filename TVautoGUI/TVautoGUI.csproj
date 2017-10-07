@@ -62,6 +62,12 @@
     <Compile Include="dlgDownloadX.Designer.cs">
       <DependentUpon>dlgDownloadX.cs</DependentUpon>
     </Compile>
+    <Compile Include="MagnetLinks.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MagnetLinks.Designer.cs">
+      <DependentUpon>MagnetLinks.cs</DependentUpon>
+    </Compile>
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -85,6 +91,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="dlgDownloadX.resx">
       <DependentUpon>dlgDownloadX.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MagnetLinks.resx">
+      <DependentUpon>MagnetLinks.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>

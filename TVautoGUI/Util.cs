@@ -127,7 +127,7 @@ namespace TVautoGUI
         public static void RunProcessForAllShows()
         {
             DateTime today = DateTime.Now;
-            string sToday = today.DayOfWeek.ToString().Substring(0, 3) + ", " + today.Day + ". " +
+            string sToday = today.DayOfWeek.ToString().Substring(0, 3) + ", " + (today.Day < 10? "0": "") + today.Day + ". " +
             today.ToString("MMMM").Substring(0, 3);
 
             HtmlDocument adHtmlDocument = airdatesHtmlDocument ?? GetAirdatesDoc();
@@ -138,8 +138,10 @@ namespace TVautoGUI
 
             foreach (DataRow row in GetShowDataTable().Rows)
             {
+                DataRow r = row;
+                string name = row["Name"].ToString();
                 var showEp =
-                    todaysShows.ChildNodes.FirstOrDefault(x => x.Name.Equals("div") && x.InnerHtml.Contains(sToday));
+                    todaysShows.ChildNodes.FirstOrDefault(x => x.Name.Equals("div") && x.InnerHtml.ToUpper().Contains(row["Name"].ToString().ToUpper()));
 
                 if (showEp != null)
                 {
@@ -149,29 +151,61 @@ namespace TVautoGUI
 
                     string showEpForUrl = showEp720p.Replace(" ", "%20");
 
-                    string magFromTpb = GetMagnetFromTPB(showEpForUrl);
+                    try
+                    {
+                        DataTable magnetsList = GetMagnetsFromTPB(showEpForUrl);
 
-                    Process.Start(magFromTpb);
+                        if(magnetsList.Rows.Count > 0)
+                            Process.Start(magnetsList.Rows[0]["Magnet Link"].ToString());
+                    }
+                    catch(Exception ex)
+                    { }
                 }
             }
         }
 
-        public static string GetMagnetFromTPB(string showEpForUrl)
+        public static DataTable GetMagnetsFromTPB(string showEpForUrl)
         {
+            DataTable magnetsTable = new DataTable();
+            magnetsTable.Columns.Add("File Name");
+            magnetsTable.Columns.Add("File Size");
+            magnetsTable.Columns.Add("Magnet Link");
+
             string thepiratebayUrl = "https://thepiratebay.se/search/" + showEpForUrl + "/0/99/0";
             var tpbData = new MyWebClient().DownloadString(thepiratebayUrl);
             var tpbDoc = new HtmlDocument();
             tpbDoc.LoadHtml(tpbData);
 
-            var tpbNode = tpbDoc.DocumentNode.SelectNodes("/html/body/div/div");
+            ///table/tr/td/div
+            /// //var tpbNode = tpbDoc.DocumentNode.SelectNodes("/html/body/div/div/div/table/tr/td").Descendants("a").Select(x => x.Attributes["href"].Value).Where(z => z.StartsWith("ma") || z.StartsWith("/to")).ToList();
+            var allNoed = tpbDoc.DocumentNode.SelectNodes("/html/body/div/div/div/table/tr/td");
+            var fonts = allNoed.Descendants("font").ToList();
 
-            var magnet = tpbNode.FirstOrDefault(x => x.InnerHtml.Contains("a href=\"magnet:"))
-                .InnerHtml.Split('<').Where(t => t.StartsWith("a href=\"magnet"))
-                .Select(r => r.Substring(8, r.Length - 8));
+            var decs = allNoed.Descendants("a");
+            var tpbNode =
+                decs.Select(x => x.Attributes["href"].Value)
+                    .Where(z => z.StartsWith("ma") || z.StartsWith("/to"))
+                    .ToList();
+            //var magnets = tpbNode.FirstOrDefault(x => x.InnerHtml.Contains("a href=\"magnet:"))
+            //    .InnerHtml.Split('<').Where(t => t.StartsWith("a href=\"magnet"))
+            //    .Select(r => r.Substring(8, r.Length - 8));
 
-            string firstMagt = magnet.First();
+            int i = 0; 
+            while (i < tpbNode.Count)
+            { 
+                //figure out how to parse the data to get the file name and link, add to table.
+                DataRow newRow = magnetsTable.NewRow();
+                newRow["File Name"] = tpbNode[i++].Split('/').Last();
+                newRow["Magnet Link"] = tpbNode[i++];
+                newRow["File Size"] = fonts[(i / 2) - 1].InnerText.Split(',')
+                    .Where(x => x.StartsWith(" Size")).First().Replace("&nbsp;", " ").Replace(" Size ", "");
+                //sample font.innerText string 'Uploaded Y-day&nbsp;11:27, Size 822.28&nbsp;MiB, ULed by hunch99'
 
-            return firstMagt.Substring(0, firstMagt.IndexOf("\""));
+                magnetsTable.Rows.Add(newRow);
+                //magnetsTable.Add(magnet.Substring(0, magnet.IndexOf("\"")));
+            }
+
+            return magnetsTable;
         }
     }
 }

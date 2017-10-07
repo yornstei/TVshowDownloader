@@ -20,11 +20,11 @@ namespace TVautoGUI
 
         private void txtbox_show_name_Enter(object sender, EventArgs e)
         {
-            TextBox TB = (TextBox)sender;
-            int VisibleTime = 2000;  //in milliseconds
+            //TextBox TB = (TextBox)sender;
+            //int VisibleTime = 2000;  //in milliseconds
 
-            ToolTip tt = new ToolTip();
-            tt.Show("Ex. Arrow S02E01", TB, 0, 0, VisibleTime);
+            //ToolTip tt = new ToolTip();
+            //tt.Show("Ex. Arrow S02E01", TB, 0, 0, VisibleTime);
         }
 
         private void btn_download_x_Click(object sender, EventArgs e)
@@ -36,9 +36,18 @@ namespace TVautoGUI
 
             string showEpForUrl = showEp.Replace(" ", "%20");
 
-            string magFromTpb = Util.GetMagnetFromTPB(showEpForUrl);
+            DataTable links = Util.GetMagnetsFromTPB(showEpForUrl);
 
-            Process.Start(magFromTpb);
+            if (links.Rows.Count > 0)
+            {
+                MagnetLinks formMagnetLinks = new MagnetLinks(links, showEp);
+                formMagnetLinks.Show();
+            }
+            else
+            {
+                MessageBox.Show("Your search returned no results!", "Message",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
     }
 }
