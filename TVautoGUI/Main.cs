@@ -19,13 +19,12 @@ namespace TVautoGUI
 
         private void btn_run_Click(object sender, EventArgs e)
         {
-            Program.Main(new[] {"test"});
+            Program.Main(new[] { "test" });
             Close();
         }
 
         private void btn_add_show_Click(object sender, EventArgs e)
         {
-            //Util.GetShowDataTable();
             dlgAddShow formAddShow = new dlgAddShow();
             formAddShow.Show();
         }

@@ -28,16 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(dlgDownloadX));
             this.txtbox_show_ep = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btn_download_x = new System.Windows.Forms.Button();
             this.chk_720p = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.chkbox_last_ep = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // txtbox_show_ep
             // 
-            this.txtbox_show_ep.Location = new System.Drawing.Point(15, 131);
+            this.txtbox_show_ep.Location = new System.Drawing.Point(15, 159);
             this.txtbox_show_ep.Name = "txtbox_show_ep";
             this.txtbox_show_ep.Size = new System.Drawing.Size(178, 20);
             this.txtbox_show_ep.TabIndex = 5;
@@ -55,7 +57,7 @@
             // 
             // btn_download_x
             // 
-            this.btn_download_x.Location = new System.Drawing.Point(118, 166);
+            this.btn_download_x.Location = new System.Drawing.Point(118, 204);
             this.btn_download_x.Name = "btn_download_x";
             this.btn_download_x.Size = new System.Drawing.Size(75, 23);
             this.btn_download_x.TabIndex = 3;
@@ -69,7 +71,7 @@
             this.chk_720p.Checked = true;
             this.chk_720p.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chk_720p.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chk_720p.Location = new System.Drawing.Point(15, 170);
+            this.chk_720p.Location = new System.Drawing.Point(15, 209);
             this.chk_720p.Name = "chk_720p";
             this.chk_720p.Size = new System.Drawing.Size(51, 18);
             this.chk_720p.TabIndex = 6;
@@ -81,16 +83,27 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(12, 54);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(192, 65);
+            this.label2.Size = new System.Drawing.Size(192, 91);
             this.label2.TabIndex = 7;
-            this.label2.Text = "Note: for movies and TV shows make\r\nsure you enter the exact name.\r\nFor TV shows," +
-    " add the season and \r\nepisode numbers after the show name. \r\nEx. Arrow S01E01.";
+            this.label2.Text = resources.GetString("label2.Text");
+            // 
+            // chkbox_last_ep
+            // 
+            this.chkbox_last_ep.AutoSize = true;
+            this.chkbox_last_ep.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkbox_last_ep.Location = new System.Drawing.Point(15, 185);
+            this.chkbox_last_ep.Name = "chkbox_last_ep";
+            this.chkbox_last_ep.Size = new System.Drawing.Size(69, 18);
+            this.chkbox_last_ep.TabIndex = 8;
+            this.chkbox_last_ep.Text = "Last Ep.";
+            this.chkbox_last_ep.UseVisualStyleBackColor = true;
             // 
             // dlgDownloadX
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(208, 194);
+            this.ClientSize = new System.Drawing.Size(208, 238);
+            this.Controls.Add(this.chkbox_last_ep);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.chk_720p);
             this.Controls.Add(this.txtbox_show_ep);
@@ -110,5 +123,6 @@
         private System.Windows.Forms.Button btn_download_x;
         private System.Windows.Forms.CheckBox chk_720p;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.CheckBox chkbox_last_ep;
     }
 }

@@ -4,9 +4,12 @@ using System.Data;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using HtmlDocument = HtmlAgilityPack.HtmlDocument;
 
 namespace TVautoGUI
@@ -42,48 +45,6 @@ namespace TVautoGUI
 
             return shows;
         }
-        //public static string[] scrapForShow(string show)
-        //{
-        //    DateTime today = DateTime.Now;
-        //    string sToday = today.DayOfWeek.ToString().Substring(0, 3) + ", " + today.Day + ". " +
-        //    today.ToString("MMMM").Substring(0, 3);
-
-        //    var url = "http://www.airdates.tv/";
-        //    var data = new MyWebClient().DownloadString(url);
-        //    var doc = new HtmlDocument();
-        //    doc.LoadHtml(data);
-
-        //    var node = doc.DocumentNode.SelectNodes("/html/body/div/div/div");
-
-        //    var todaysShows = node.FirstOrDefault(x => x.InnerText.Contains("Sat, 30. Sep"));
-
-        //    string showEpisode = todaysShows.ChildNodes.FirstOrDefault(x => x.Name.Equals("div") && x.InnerHtml.Contains(show)).InnerText.Replace("\t", String.Empty).Replace("\n", String.Empty);
-
-        //    //Console.WriteLine(showEpisode);
-        //    //Henry Danger
-        //    string showEp720p = showEpisode + " 720p";
-
-        //    string showEpForUrl = showEp720p.Replace(" ", "%20");
-
-        //    string thepiratebayUrl = "https://thepiratebay.se/search/" + showEpForUrl + "/0/99/0";
-        //    var tpbData = new MyWebClient().DownloadString(thepiratebayUrl);
-        //    var tpbDoc = new HtmlDocument();
-        //    tpbDoc.LoadHtml(tpbData);
-
-        //    var tpbNode = tpbDoc.DocumentNode.SelectNodes("/html/body/div/div");
-
-        //    var magnet = tpbNode.FirstOrDefault(x => x.InnerHtml.Contains("a href=\"magnet:")).InnerHtml.Split('<').Where(t => t.StartsWith("a href=\"magnet")).Select(r => r.Substring(8, r.Length - 8));//use index of to get till first "
-        //    //var mag = magnet.First();
-
-        //    foreach (string magn in magnet)
-        //    {
-        //        string magt = magn.Substring(0, magn.IndexOf("\""));
-
-        //        Process.Start(magt);
-        //    }
-
-        //    return magnet.ToArray();
-        //}
 
         public static bool ShowFileExist()
         {
@@ -176,8 +137,6 @@ namespace TVautoGUI
             var tpbDoc = new HtmlDocument();
             tpbDoc.LoadHtml(tpbData);
 
-            ///table/tr/td/div
-            /// //var tpbNode = tpbDoc.DocumentNode.SelectNodes("/html/body/div/div/div/table/tr/td").Descendants("a").Select(x => x.Attributes["href"].Value).Where(z => z.StartsWith("ma") || z.StartsWith("/to")).ToList();
             var allNoed = tpbDoc.DocumentNode.SelectNodes("/html/body/div/div/div/table/tr/td");
             var fonts = allNoed.Descendants("font").ToList();
 
@@ -186,14 +145,10 @@ namespace TVautoGUI
                 decs.Select(x => x.Attributes["href"].Value)
                     .Where(z => z.StartsWith("ma") || z.StartsWith("/to"))
                     .ToList();
-            //var magnets = tpbNode.FirstOrDefault(x => x.InnerHtml.Contains("a href=\"magnet:"))
-            //    .InnerHtml.Split('<').Where(t => t.StartsWith("a href=\"magnet"))
-            //    .Select(r => r.Substring(8, r.Length - 8));
 
             int i = 0; 
             while (i < tpbNode.Count)
             { 
-                //figure out how to parse the data to get the file name and link, add to table.
                 DataRow newRow = magnetsTable.NewRow();
                 newRow["File Name"] = tpbNode[i++].Split('/').Last();
                 newRow["Magnet Link"] = tpbNode[i++];
@@ -202,10 +157,41 @@ namespace TVautoGUI
                 //sample font.innerText string 'Uploaded Y-day&nbsp;11:27, Size 822.28&nbsp;MiB, ULed by hunch99'
 
                 magnetsTable.Rows.Add(newRow);
-                //magnetsTable.Add(magnet.Substring(0, magnet.IndexOf("\"")));
             }
 
             return magnetsTable;
+        }
+
+
+        public static async Task<TVmazeShowEpData> GetShowEpisodesData(string showName)
+        {
+            var client = new HttpClient();
+
+            var sb = new StringBuilder();
+
+            sb.Append("http://api.tvmaze.com/singlesearch/shows?q=");
+            sb.Append(showName.Trim().Replace(" ", "%20"));
+            sb.Append("&embed=episodes");
+
+            var uri = new Uri(sb.ToString());
+            var response = await client.GetStringAsync(uri);
+            
+            TVmazeShowEpData showData = JsonConvert.DeserializeObject<TVmazeShowEpData>(response);
+            
+            return showData;
+        }
+
+        public static async Task<Tuple<string, string>> GetLastSeasonAndEpisode(string showName)
+        {
+            TVmazeShowEpData data = await GetShowEpisodesData(showName);
+            var seasonAndEp = data._embedded.episodes
+                .Where(x => x.airstamp < DateTime.Now).OrderByDescending(s => s.airstamp).First();
+
+            string season = (seasonAndEp.season < 10 ? 0 + "": "") + seasonAndEp.season;
+            string episode = (seasonAndEp.number < 10 ? 0 + "" : "") + seasonAndEp.number;
+
+
+            return new Tuple<string, string>(season, episode);
         }
     }
 }

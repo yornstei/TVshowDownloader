@@ -117,4 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="label2.Text" xml:space="preserve">
+    <value>Note: for movies and TV shows make
+sure you enter the exact name.
+For TV shows, add the season and 
+episode numbers after the show name. 
+Ex. Arrow S01E01.
+If 'Last Ep.' is selected, only enter the 
+show's name.</value>
+  </data>
 </root>

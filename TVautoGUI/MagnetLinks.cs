@@ -17,7 +17,7 @@ namespace TVautoGUI
         {
             InitializeComponent();
 
-            dgv_links.DataSource = links; //asEnumerable()??
+            dgv_links.DataSource = links;
             dgv_links.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dgv_links.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             lbl_links_for.Text = linkFor;
@@ -30,7 +30,6 @@ namespace TVautoGUI
                 return;
             if (dgv.CurrentRow.Selected)
             {
-                //do you staff.
                 Process.Start(dgv.CurrentRow.Cells[1].Value.ToString());
             }
         }
