@@ -40,5 +40,11 @@ namespace TVautoGUI
             dlgDownloadX formDlgDownloadX = new dlgDownloadX();
             formDlgDownloadX.Show();
         }
+
+        private void btn_show_info_Click(object sender, EventArgs e)
+        {
+            dlgShowToSearch formDlgShowToSearch = new dlgShowToSearch();
+            formDlgShowToSearch.Show();
+        }
     }
 }

@@ -42,9 +42,10 @@ namespace TVautoGUI
             {
                 xForDownload = txtbox_show_ep.Text;
 
-                if (chk_720p.Checked)
-                    xForDownload += " 720p";
             }
+
+            if (chk_720p.Checked)
+                xForDownload += " 720p";
 
             string xForUrl = xForDownload.Trim().Replace(" ", "%20");
 

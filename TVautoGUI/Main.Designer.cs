@@ -33,6 +33,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.btn_down_x = new System.Windows.Forms.Button();
             this.btn_add_show = new System.Windows.Forms.Button();
+            this.btn_show_info = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btn_cur_shows
@@ -49,7 +50,7 @@
             // btn_run
             // 
             this.btn_run.Font = new System.Drawing.Font("Times New Roman", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_run.Location = new System.Drawing.Point(46, 180);
+            this.btn_run.Location = new System.Drawing.Point(46, 193);
             this.btn_run.Name = "btn_run";
             this.btn_run.Size = new System.Drawing.Size(103, 23);
             this.btn_run.TabIndex = 1;
@@ -71,7 +72,7 @@
             // btn_down_x
             // 
             this.btn_down_x.Font = new System.Drawing.Font("Times New Roman", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_down_x.Location = new System.Drawing.Point(46, 148);
+            this.btn_down_x.Location = new System.Drawing.Point(46, 161);
             this.btn_down_x.Name = "btn_down_x";
             this.btn_down_x.Size = new System.Drawing.Size(103, 23);
             this.btn_down_x.TabIndex = 3;
@@ -82,7 +83,7 @@
             // btn_add_show
             // 
             this.btn_add_show.Font = new System.Drawing.Font("Times New Roman", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_add_show.Location = new System.Drawing.Point(46, 111);
+            this.btn_add_show.Location = new System.Drawing.Point(46, 103);
             this.btn_add_show.Name = "btn_add_show";
             this.btn_add_show.Size = new System.Drawing.Size(103, 23);
             this.btn_add_show.TabIndex = 4;
@@ -90,11 +91,23 @@
             this.btn_add_show.UseVisualStyleBackColor = true;
             this.btn_add_show.Click += new System.EventHandler(this.btn_add_show_Click);
             // 
+            // btn_show_info
+            // 
+            this.btn_show_info.Font = new System.Drawing.Font("Times New Roman", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_show_info.Location = new System.Drawing.Point(46, 132);
+            this.btn_show_info.Name = "btn_show_info";
+            this.btn_show_info.Size = new System.Drawing.Size(103, 23);
+            this.btn_show_info.TabIndex = 5;
+            this.btn_show_info.Text = "Show/Ep Info";
+            this.btn_show_info.UseVisualStyleBackColor = true;
+            this.btn_show_info.Click += new System.EventHandler(this.btn_show_info_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(196, 215);
+            this.ClientSize = new System.Drawing.Size(196, 226);
+            this.Controls.Add(this.btn_show_info);
             this.Controls.Add(this.btn_add_show);
             this.Controls.Add(this.btn_down_x);
             this.Controls.Add(this.label1);
@@ -114,6 +127,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btn_down_x;
         private System.Windows.Forms.Button btn_add_show;
+        private System.Windows.Forms.Button btn_show_info;
     }
 }
 

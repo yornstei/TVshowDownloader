@@ -66,6 +66,12 @@
     <Compile Include="dlgDownloadX.Designer.cs">
       <DependentUpon>dlgDownloadX.cs</DependentUpon>
     </Compile>
+    <Compile Include="dlgShowToSearch.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="dlgShowToSearch.Designer.cs">
+      <DependentUpon>dlgShowToSearch.cs</DependentUpon>
+    </Compile>
     <Compile Include="MagnetLinks.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -83,6 +89,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ShowEpInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ShowEpInfo.Designer.cs">
+      <DependentUpon>ShowEpInfo.cs</DependentUpon>
+    </Compile>
     <Compile Include="ShowsAndDates.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -96,6 +108,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="dlgDownloadX.resx">
       <DependentUpon>dlgDownloadX.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="dlgShowToSearch.resx">
+      <DependentUpon>dlgShowToSearch.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MagnetLinks.resx">
       <DependentUpon>MagnetLinks.cs</DependentUpon>
@@ -112,6 +127,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="ShowEpInfo.resx">
+      <DependentUpon>ShowEpInfo.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ShowsAndDates.resx">
       <DependentUpon>ShowsAndDates.cs</DependentUpon>
     </EmbeddedResource>

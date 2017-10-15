@@ -30,7 +30,7 @@ namespace TVautoGUI
                 return;
             if (dgv.CurrentRow.Selected)
             {
-                Process.Start(dgv.CurrentRow.Cells[1].Value.ToString());
+                Process.Start(dgv.CurrentRow.Cells[2].Value.ToString());
             }
         }
     }
