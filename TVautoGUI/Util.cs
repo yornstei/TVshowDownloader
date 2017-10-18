@@ -85,9 +85,9 @@ namespace TVautoGUI
             }
         }
 
-        public static void RunProcessForAllShows()
+        public static void RunProcessForAllShows(StreamWriter file = null)
         {
-            DateTime today = DateTime.Now;
+            DateTime today = DateTime.Now.AddDays(-1);
             string sToday = today.DayOfWeek.ToString().Substring(0, 3) + ", " + (today.Day < 10? "0": "") + today.Day + ". " +
             today.ToString("MMMM").Substring(0, 3);
 
@@ -118,6 +118,9 @@ namespace TVautoGUI
 
                         if(magnetsList.Rows.Count > 0)
                             Process.Start(magnetsList.Rows[0]["Magnet Link"].ToString());
+
+                        if (file != null)
+                            file.WriteLine("Downloaded " + showEp720p);
                     }
                     catch(Exception ex)
                     { }
@@ -132,7 +135,7 @@ namespace TVautoGUI
             magnetsTable.Columns.Add("File Size");
             magnetsTable.Columns.Add("Magnet Link");
 
-            string thepiratebayUrl = "https://thepiratebay.se/search/" + showEpForUrl + "/0/99/0";
+            string thepiratebayUrl = "https://thepiratebay.org/search/" + showEpForUrl + "/0/99/0";
             var tpbData = new MyWebClient().DownloadString(thepiratebayUrl);
             var tpbDoc = new HtmlDocument();
             tpbDoc.LoadHtml(tpbData);

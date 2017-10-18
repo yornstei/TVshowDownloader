@@ -30,10 +30,13 @@ namespace TVautoGUI
         {
             Episode currEpisode;
             if (lastEp)
+            {
                 currEpisode =
-                    data._embedded.episodes.Where(x => x.airstamp > DateTime.Now)
+                    data._embedded.episodes.Where(x => x.airstamp < DateTime.Now)
                         .OrderByDescending(x => x.airstamp)
                         .First();
+                curShowIndex = Array.IndexOf(data._embedded.episodes, currEpisode);
+            }
             else
                 currEpisode = data._embedded.episodes[curShowIndex];
 
